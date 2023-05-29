@@ -1,0 +1,151 @@
+@charset "UTF-8";
+
+/* top bar style sheet */
+.top-bar-container {
+    height: 28px;
+    background: #313131;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.top-bar-menu {
+    background: none;
+    display: flex;
+    justify-content: right;
+}
+
+.top-bar-container a {
+    text-decoration: none;
+    background: none;
+    color: #fff;
+    height: auto;
+    display: flex;
+    margin: 0 10px 0 30px;
+    font-size: 13px;
+    font-weight: bold;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.top-bar-container img {
+    height: 16px;
+    background: none;
+}
+
+.top-bar-container a div {
+    background: none;
+}
+
+
+/* nav bar */
+.nav-bar-container {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #e3e3e3;
+    position: sticky;
+    z-index: 100;
+    top: 0;
+}
+
+.nav-bar-menu {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-bar-menu .menu {
+    float: left;
+    width: 97%;
+    height: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+.nav-bar-menu ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.nav-bar-menu .menu-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.nav-bar-menu ul li a{
+    text-decoration: none;
+    color: #333; 
+}
+
+.nav-bar-menu .top-search {
+    float: right;
+}
+
+.nav-bar-menu a:hover{
+    cursor: pointer;
+}
+
+.top-search a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-search img{
+    width: 10px;
+    z-index: 100;
+}
+
+.top-cancel-btn {
+    position: relative;
+    top: 0;
+    right: 10px;
+    visibility: hidden;
+    opacity: 0;
+} 
+
+.show-search {
+    position: absolute;
+    width: 850px;
+    top: 0;
+    height: 49px;
+    background: #f8ede8;
+    text-align: left;
+    padding-left: 65px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s linear, 
+                opacity 0.2s linear;
+}
+
+.search-active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.show-search form {
+    display: block;
+}
+
+.show-search .search-input {
+    border: none;
+    position: absolute;
+    width: 70%;
+    z-index: 3;
+    color: #313131;
+    height: 50px;
+    line-height: 28px;
+    background: none;
+    letter-spacing: 1px;
+    font-size: 13px;
+    outline: none;
+    font-weight: bold;
+}

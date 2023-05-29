@@ -1,0 +1,42 @@
+{% extends "lg_base.html"%}
+
+{% block title %}
+<title>使用者登入</title>
+{% endblock title %}
+
+{% block content %}
+<div class="global-container">
+<div class="card login-form">
+    <div class="card-body">
+        <h3 class="card-title text-center">Welcome</h3>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="card-text">
+        <form method="post" action="{% url 'login' %}" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <!-- to error: add class "has-danger" -->
+            <div class="form-group">
+                <label for="exampleInputEmail1">Username</label>
+                <input type="text" name="username" class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                {% comment %} <a href="{% url 'forget_password'%}" style="float:right;font-size:14px;">Forgot password?</a> {% endcomment %}
+                <input type="password" name="password" class="form-control form-control-sm" id="exampleInputPassword1">
+            </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                <div class="sign-up">
+                    Don't have an account? <a href="{% url 'register' %}">Create One</a>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

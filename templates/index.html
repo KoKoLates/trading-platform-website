@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+	<meta charset="UTF-8">
+	<title>好市好事</title>
+
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'styles/index.css' %}">
+	<link rel="stylesheet" href="{% static 'styles/navbar.css' %}">
+	<link rel="stylesheet" href="{% static 'styles/campaign.css' %}">
+	<link rel="icon" href="{% static 'images/icon.png' %}" type="image/png">
+</head>
+
+<body>
+	<!-- top bar container -->
+	<div class="top-bar-container">
+		<div class="top-bar-menu container">
+			<a href="#">
+				<img src="{% static 'images/language.png' %}" alt="">
+				<div>語言</div>
+			</a>
+			<a href={% url 'login_interface' %}>
+				<img src="{% static 'images/person.png' %}" alt="">
+				{% if not request.user.is_authenticated %}
+				<div>會員登入</div>
+				{% else %}
+				<div>{{ user.username }}</div>
+				{% endif %}
+			</a>
+		</div>
+	</div>
+
+	<!-- nav bar container -->
+	<div class="nav-bar-container">
+		<div class="nav-bar-menu container">
+			<div class="menu">
+				<ul>
+					<li class="menu-item"><a href="{% url 'index' %}#">首頁</a></li>
+					<li class="menu-item"><a href="{% url 'market_index' %}">二手市集</a></li>
+					<li class="menu-item"><a href="{% url 'index'%}#article">專欄文章</a></li>
+					<li class="menu-item"><a href="{% url 'index'%}#campaign">活動</a></li>
+				</ul>
+			</div>
+			<div class="top-search" >
+				<a>
+					<img class="top-search-btn" src="{% static 'images/search.png' %}" alt="">
+					<img class="top-cancel-btn" src="{% static 'images/cancel.png' %}" alt="">
+				</a>
+			</div>
+			<div class="show-search" id="show-search">
+				<form role="search" method="get" id="searchform" action="">
+					<div><input type="text" class="search-input" placeholder="搜尋" name="s" id="s" /></div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- cover container -->
+	<section class="cover-container">
+		<div class="cover container">
+			<div class="cover-text">
+				<div>好市</div>
+				<div>好事</div>
+			</div>
+			<div class="cover-image">
+				{% comment %} <img src="{% static 'images/cover.png' %}" alt=""> {% endcomment %}
+			</div>
+		</div>
+	</section>
+
+	<!-- article container -->
+	<section class="article-container" id="article">
+		<div class="article-div container">
+			<div class="article-background">
+				<img class="background-images" src="{% static 'images/article_background.png' %}" alt="">
+			</div>
+			<div class="article-shelves">
+				<div class="slide-row" id="slide">
+					<div class="slide-col" id="article-01">
+						<img src="{% static 'images/test.jpg' %}" alt="">
+						<span> 斷捨離妙招 </span>
+					</div>
+					<div class="slide-col" id="article-02">
+						<img src="{% static 'images/test2.jpg' %}" alt="">
+						<span> 二手市集，新的綠色? </span>
+					</div>
+					<div class="slide-col" id="article-03">
+						<img src="{% static 'images/test3.jpg' %}" alt="">
+						<span> 網路市集挖寶! </span>
+					</div>
+					<div class="slide-col" id="article-04">
+						<img src="{% static 'images/test4.jpg' %}" alt="" style="filter: brightness(0.85);">
+						<span> 二手消費文化 </span>
+					</div>
+				</div>
+				<div class="indicator">
+					<span class="btn btn-active"></span>
+					<span class="btn"></span>
+					<span class="btn"></span>
+					<span class="btn"></span>
+				</div>
+			</div>
+		</div>
+		<div class="test-container">
+			<div class="popup-page">
+				<div class="close-btn">&times;</div>
+				<h1 id="popup-title">title</Title>
+				</h1>
+				<p id="popup-contents">contents</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- campaign container -->
+	<section class="campaign-container" id="campaign">
+		<div class="campaign-div container">
+			<div class="campaign-title">
+				<span>活動</span>
+			</div>
+			<div class="campaign-shelve">
+				<div class="campaign-row">
+					
+					<div class="campaign-col campaign-add">
+						<div class="add-icon">+</div>
+						<span>新增活動</span>
+					</div>
+					<script>
+						document.querySelector('.campaign-add').addEventListener('click', () => {
+							{% if not request.user.is_authenticated %}
+							alert('請先登入')
+							{% endif %}
+						})
+					</script>
+
+					{% for campaign in campaigns %}
+					<div class="campaign-col">
+						<div class="campaign-contents">
+							<span class="campaign-date">{{ campaign.date }}</span>
+							<span class="campaign-name">{{ campaign.name }}</span>
+							<span class="campaign-people">0 人已報名</span>
+							<div class="campaign-register">
+								<span>報名活動</span>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				{% if request.user.is_authenticated %}
+				<div class="campaign-form-container">
+					<span class="campaign-form-title">新增活動</span>
+					<form style="background: none;" method="post" action="{% url 'create_campaign' %}" enctype='multipart/form-data'>
+						{% csrf_token %}
+						<input type="submit" class="campaign-form-add" value='+'>
+						<input type="reset" class="campaign-form-close" value='x'>
+						<label for="name-input">
+							<span class="form-text">活動名稱</span>
+							<input type="text" id="name-input" name="name">
+						</label>
+						<label for="date-input">
+							<span class="form-text">活動日期</span>
+							<input type="date" id="date-input" name="date">
+						</label>
+						<label for="time-input">
+							<span class="form-text">活動時間</span>
+							<input type="time" id="time-input" name="time">
+						</label>
+						<label for="loca-input">
+							<span class="form-text">活動地點</span>
+							<input type="text" id="loca-input" name="location">
+						</label>
+						<label for="desc-input">
+							<span class="form-text">活動描述（可略）</span>
+							<input type="text" id="desc-input" name="description" class="campaign-form-desc">
+						</label>
+					</form>
+				</div>
+				{% endif %}
+			</div>
+			
+			<div class="campaign-form-overlay"></div>
+		</div>
+	</section>
+
+	<!-- Optional JavaScript -->
+	<script src="{% static 'scripts/script.js' %}"></script>
+	<script src="{% static 'scripts/navbar.js' %}"></script>
+	<script src="{% static 'scripts/campaign.js' %}"></script>
+</body>
+
+</html>

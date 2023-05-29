@@ -1,0 +1,101 @@
+{% extends 'mk_base.html' %}
+
+{% block category %}
+<div class="category-container">
+  <div class="categories">
+    <ul>
+      <li class="category-active">
+        <a href="">所有物件</a>
+      </li>
+      <li>
+        <a href="">衣物服飾</a>
+      </li>
+      <li>
+        <a href="">鞋子</a>
+      </li>
+      <li>
+        <a href="">電子設備</a>
+      </li>
+      <li>
+        <a href="">其他物件</a>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endblock category %}
+
+{% block post %}
+<div class="post-container">
+  {% comment %} post {% endcomment %}
+  <div class='post-bulletin-board'>
+    <div class='post'>
+      <div class='post-item-image'>
+        {% load static %}
+        <img src="{% static 'images/test.jpg' %}" alt="">
+      </div>
+      <div class='post-item-text'>
+        <p class="item-title">玻璃花瓶</p>
+        <div class='item-tag'>
+          <p>NTD. 150</p>
+          <button class='love-item love-item-active'>&#10084;</button>
+          <button class='buy-item buy-item-active'>&plus;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class='post'>
+      <div class='post-item-image'>
+        {% load static %}
+        <img src="{% static 'images/test.jpg' %}" alt="">
+      </div>
+      <div class='post-item-text'>
+        <p class="item-title">玻璃花瓶</p>
+        <div class='item-tag'>
+          <p>NTD. 150</p>
+          <button class='love-item'>&#10084;</button>
+          <button class='buy-item'>&plus;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class='post'>
+      <div class='post-item-image'>
+        {% load static %}
+        <img src="{% static 'images/test.jpg' %}" alt="">
+      </div>
+      <div class='post-item-text'>
+        <p class="item-title">玻璃花瓶</p>
+        <div class='item-tag'>
+          <p>NTD. 150</p>
+          <button class='love-item'>&#10084;</button>
+          <button class='buy-item'>&plus;</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock post %}
+
+{% block preview %}
+<div class="preview-container">
+  <div class='preview-fixed-container'>
+    <div class='t-item-description'>
+      <div class='t-item-image'>
+        {% load static %}
+        <img src="{% static 'images/test.jpg' %}" alt="">
+      </div>
+      <div class='t-item-text'>
+        <p class='t-item-title'>玻璃花瓶</p>
+        <p>NTD. 150 | 2個
+        </p>
+        <P>交易方式</P>
+        <P>商品狀況</P>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock preview %}
+
+

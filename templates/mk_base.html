@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <title>好市好事</title>
+
+  <!-- Required stylesheet files -->
+  <link rel="stylesheet" href="{% static 'styles/index.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/navbar.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/market.css' %}">
+  <link rel="icon" href="{% static 'images/icon.png' %}" type="image/png">
+</head>
+
+<body>
+<!-- top bar container -->
+<div class="top-bar-container">
+  <div class="top-bar-menu container">
+    <a href="#">
+      <img src="{% static 'images/language.png' %}" alt="">
+      <div>語言</div>
+    </a>
+    <a href={% url 'login_interface' %}>
+      <img src="{% static 'images/person.png' %}" alt="">
+      {% if not request.user.is_authenticated %}
+      <div>會員登入</div>
+      {% else %}
+      <div>{{ user.username }}</div>
+      {% endif %}
+    </a>
+  </div>
+</div>
+
+<!-- nav bar container -->
+<div class="nav-bar-container">
+	<div class="nav-bar-menu container">
+		<div class="menu">
+			<ul>
+				<li class="menu-item"><a href="{% url 'index' %}#">首頁</a></li>
+				<li class="menu-item"><a href="{% url 'market_index' %}">二手市集</a></li>
+				<li class="menu-item"><a href="{% url 'index'%}#article">專欄文章</a></li>
+				<li class="menu-item"><a href="{% url 'index'%}#campaign">活動</a></li>
+			</ul>
+		</div>
+		<div class="top-search" >
+			<a>
+				<img class="top-search-btn" src="{% static 'images/search.png' %}" alt="">
+				<img class="top-cancel-btn" src="{% static 'images/cancel.png' %}" alt="">
+			</a>
+		</div>
+		<div class="show-search" id="show-search">
+			<form role="search" method="get" id="searchform" action="">
+				<div><input type="text" class="search-input" placeholder="搜尋" name="s" id="s" /></div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="market-interface-container">
+  <div class="market-interface">
+    {% load static %}
+    {% block category %}{% endblock category %}
+    {% block post %}{% endblock post %}
+    {% block preview %}{% endblock preview %}
+  </div>
+</div>
+
+<!-- Optional JavaScript -->
+<script src="{% static 'scripts/navbar.js' %}"></script>
+</body>
+</html>

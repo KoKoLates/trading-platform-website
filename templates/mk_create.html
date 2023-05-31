@@ -1,80 +1,28 @@
 {% extends 'mk_base.html' %}
 
-{% block category %}
-<div class="category-container">
-  <div class="categories">
-    <ul>
-      <li class="category-active">
-        <a href="">所有物件</a>
-      </li>
-      <li>
-        <a href="">衣物服飾</a>
-      </li>
-      <li>
-        <a href="">鞋子</a>
-      </li>
-      <li>
-        <a href="">電子設備</a>
-      </li>
-      <li>
-        <a href="">其他物件</a>
-      </li>
-    </ul>
-  </div>
-</div>
-{% endblock category %}
-
 {% block post %}
 <div class="post-container">
-  {% comment %} post {% endcomment %}
   <div class='post-bulletin-board'>
+    <div class='post'>
+      <a href="{% url 'create_interface' %}">新增商品</a>
+    </div>
+    {% for item in items %}
     <div class='post'>
       <div class='post-item-image'>
         {% load static %}
-        <img src="{% static 'images/test.jpg' %}" alt="">
+        <img src="{{item.image.url}}" alt="{{item.name}}">
       </div>
       <div class='post-item-text'>
-        <p class="item-title">玻璃花瓶</p>
+        <p class="item-title">{{item.name}}</p>
         <div class='item-tag'>
-          <p>NTD. 150</p>
+          <p>NTD. {{item.price}}</p>
           <button class='love-item love-item-active'>&#10084;</button>
           <button class='buy-item buy-item-active'>&plus;</button>
         </div>
       </div>
     </div>
-
-    <div class='post'>
-      <div class='post-item-image'>
-        {% load static %}
-        <img src="{% static 'images/test.jpg' %}" alt="">
-      </div>
-      <div class='post-item-text'>
-        <p class="item-title">玻璃花瓶</p>
-        <div class='item-tag'>
-          <p>NTD. 150</p>
-          <button class='love-item'>&#10084;</button>
-          <button class='buy-item'>&plus;</button>
-        </div>
-      </div>
-    </div>
-
-    <div class='post'>
-      <div class='post-item-image'>
-        {% load static %}
-        <img src="{% static 'images/test.jpg' %}" alt="">
-      </div>
-      <div class='post-item-text'>
-        <p class="item-title">玻璃花瓶</p>
-        <div class='item-tag'>
-          <p>NTD. 150</p>
-          <button class='love-item'>&#10084;</button>
-          <button class='buy-item'>&plus;</button>
-        </div>
-      </div>
-    </div>
-
+    {% endfor %}
   </div>
-
 </div>
 {% endblock post %}
 
@@ -82,7 +30,7 @@
 <div class="preview-container">
   <div class='preview-fixed-container'>
     <p class='new-item-title'>新增商品</p>
-    <form action="" method='post' enctype='multipart/form-data'>
+    <form action="{% url 'create' %}" method='post' enctype='multipart/form-data'>
       {% csrf_token %}
       <label>商品名稱
         <input type="text" id='new-item-name' name='name' required>
@@ -91,7 +39,7 @@
         <input type="number" id='new-item-price' name='price' required>
       </label>
       <label>商品數量
-        <input type="text" id='new-item-name' name='name' required>
+        <input type="text" id='new-item-quantity' name='quantity' required>
       </label>
       <label>商品分類
         <select name="category" id="new-item-category">
@@ -120,8 +68,9 @@
         {% comment %} <input type="file" id='new-item-image' name='image2'> {% endcomment %}
       </label>
       <div class='new-item-btn-block'>
-        <button type='button' id='new-item-add' class='new-item-btn'>&plus;</button>
-        <button type='button' id='new-item-cancel' class='new-item-btn'>&times;</button>
+        <button type='submit' id='new-item-add' class='new-item-btn'>&plus;</button>
+        <button type='button' id='new-item-cancel' class='new-item-btn'
+          onclick="location.href='{% url 'user' %}'">&times;</button>
       </div>
     </form>
   </div>

@@ -138,12 +138,29 @@
 						<div class="campaign-contents">
 							<span class="campaign-date">{{ campaign.date }}</span>
 							<span class="campaign-name">{{ campaign.name }}</span>
-							<span class="campaign-people">0 人已報名</span>
-							<div class="campaign-register">
-								<span>報名活動</span>
+							<span class="campaign-people">{{ campaign.register_num }} 人已報名</span>
+							{% if user.get_username == campaign.announcer %}
+							<div class="campaign-register is-registed">
+								<a href="{% url 'delete_campaign' idx=campaign.idx %}"><span>取消活動</span></a>
 							</div>
+							{% elif campaign.idx in registers %}
+							<div class="campaign-register is-registed">
+								<a href="{% url 'cancel_campaign' idx=campaign.idx %}"><span>取消報名</span></a>
+							</div>
+							{% else %}
+							<div class="campaign-register">
+								<a href="{% url 'register_campaign' idx=campaign.idx %}"><span>報名活動</span></a>
+							</div>
+							{% endif %}	
 						</div>
 					</div>
+					<script>
+						document.querySelector('.campaign-register').addEventListener('click', () => {
+							{% if not request.user.is_authenticated %}
+							alert('請先登入')
+							{% endif %}
+						})
+					</script>
 					{% endfor %}
 				</div>
 				{% if request.user.is_authenticated %}

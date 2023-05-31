@@ -3,6 +3,9 @@
 {% block post %}
 <div class="post-container">
   <div class='post-bulletin-board'>
+    <div class='post'>
+      <a href="{% url 'create_interface' %}">新增商品</a>
+    </div>
     {% for item in items %}
     <div class='post'>
       <div class='post-item-image'>
@@ -24,7 +27,7 @@
 {% endblock post %}
 
 {% block preview %}
- <div class="preview-container">
+{% comment %} <div class="preview-container">
   <div class='preview-fixed-container'>
     <div class='t-item-description'>
       <div class='t-item-image'>
@@ -40,7 +43,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> {% endcomment %}
 {% endblock preview %}
-
-

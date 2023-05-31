@@ -17,5 +17,5 @@ class Register(models.Model):
     """ The model for store the the registing action """
     idx = models.AutoField(auto_created=True, primary_key=True)
     user = models.CharField(max_length=20)
-    campaign = models.CharField(max_length=20)
+    campaign = models.IntegerField(null=True)
     

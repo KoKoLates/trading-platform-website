@@ -53,6 +53,36 @@
   color: #fff;
 }
 
+.category-btn-div {
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 10px 0 10px;
+  border-top: 1px solid;
+}
+
+.category-btn {
+  margin: 10px 10px 0 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 25px;
+  background: none;
+  border: 1px solid;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #313131;
+}
+
+.my-item-btn {
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
 /* post part container */
 .post-container {
   width: 50%;
@@ -67,7 +97,7 @@
 
 .post {
   width: 90%;
-  height: 355px;
+  height: 90%;
   background-color: aliceblue;
   border-radius: 25px;
   overflow: hidden;
@@ -144,7 +174,6 @@
   background-color: cadetblue;
   color: #fff;
 }
-
 
 /* preview part container */
 .preview-container {

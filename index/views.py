@@ -1,16 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import auth
-from .models import Campaign
+from django.contrib.auth.decorators import login_required
+from .models import Campaign, Register
 
 # Create your views here.
 def index(request):
+    return render(request, 'index.html', 
+        {'campaigns': Campaign.objects.all(), 
+         'registers': [register.campaign for register in \
+                       Register.objects.filter(user=request.user.username)]
+        })
 
-    # testing user login
-    # user = auth.authenticate(username='koko', password='123')
-    # auth.login(request, user)
-
-    return render(request, 'index.html', {'campaigns': Campaign.objects.all()})
-
+def market_index(request):
+    return render(request, 'mk_index.html')
 
 def create_campaign(request):
     if request.method in ('POST'):
@@ -24,7 +26,36 @@ def create_campaign(request):
         campaign.register_num = 0
         campaign.save()
 
-    return render(request, 'index.html', {'campaigns': Campaign.objects.all()})
+    return redirect('index')
 
-def market_index(request):
-    return render(request, 'mk_index.html')
+def delete_campaign(request, idx):
+    if request.method in ('GET'):
+        campaign = Campaign.objects.filter(idx=idx)
+        campaign.delete()
+        register = Register.objects.filter(campaign=idx)
+        register.delete()
+    return redirect('index')
+
+@login_required(login_url='index')
+def register_campaign(request, idx):
+    if request.method in ('GET'):
+        register = Register()
+        register.user = request.user.username
+        register.campaign = idx
+        register.save()
+
+        campaign = Campaign.objects.get(idx=idx)
+        campaign.register_num += 1
+        campaign.save()
+    return redirect('index')
+
+def cancel_campaign(request, idx):
+    if request.method in ('GET'):
+        register = Register.objects.filter(campaign=idx, user=request.user.username)
+        register.delete()
+
+        campaign = Campaign.objects.get(idx=idx)
+        campaign.register_num -= 1
+        campaign.save()
+    
+    return redirect('index')

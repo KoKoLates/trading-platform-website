@@ -8,7 +8,4 @@ urlpatterns = [
     path('delete/<idx>/', views.delete_campaign, name='delete_campaign'),
     path('cancel/<idx>/', views.cancel_campaign, name='cancel_campaign'),
     path('register/<idx>/', views.register_campaign, name='register_campaign'),
-
-    # transition to the market page
-    path('market/', views.market_index, name='market_index'),
 ]

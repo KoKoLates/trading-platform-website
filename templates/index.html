@@ -13,7 +13,7 @@
 </head>
 
 <body>
-	<!-- top bar container -->
+  <!-- top bar container for login --> 
 	<div class="top-bar-container">
 		<div class="top-bar-menu container">
 			<a href="#">
@@ -56,15 +56,12 @@
 		</div>
 	</div>
 
-	<!-- cover container -->
+	<!-- cover container for title -->
 	<section class="cover-container">
 		<div class="cover container">
 			<div class="cover-text">
 				<div>好市</div>
 				<div>好事</div>
-			</div>
-			<div class="cover-image">
-				{% comment %} <img src="{% static 'images/cover.png' %}" alt=""> {% endcomment %}
 			</div>
 		</div>
 	</section>
@@ -77,23 +74,29 @@
 			</div>
 			<div class="article-shelves">
 				<div class="slide-row" id="slide">
+          <!-- slide colume for article container -->
 					<div class="slide-col" id="article-01">
-						<img src="{% static 'images/test.jpg' %}" alt="">
+						<img src="{% static 'images/test.jpg' %}" alt="斷捨離妙招">
 						<span> 斷捨離妙招 </span>
 					</div>
+
 					<div class="slide-col" id="article-02">
-						<img src="{% static 'images/test2.jpg' %}" alt="">
+						<img src="{% static 'images/test2.jpg' %}" alt="二手市集">
 						<span> 二手市集，新的綠色? </span>
 					</div>
+
 					<div class="slide-col" id="article-03">
-						<img src="{% static 'images/test3.jpg' %}" alt="">
+						<img src="{% static 'images/test3.jpg' %}" alt="網路市集">
 						<span> 網路市集挖寶! </span>
 					</div>
+
 					<div class="slide-col" id="article-04">
-						<img src="{% static 'images/test4.jpg' %}" alt="" style="filter: brightness(0.85);">
+						<img src="{% static 'images/test4.jpg' %}" alt=" 二手消費" 
+              style="filter: brightness(0.85);">
 						<span> 二手消費文化 </span>
 					</div>
 				</div>
+        <!-- the swift button for article container -->
 				<div class="indicator">
 					<span class="btn btn-active"></span>
 					<span class="btn"></span>
@@ -102,6 +105,8 @@
 				</div>
 			</div>
 		</div>
+
+    <!-- popup page for article -->
 		<div class="test-container">
 			<div class="popup-page">
 				<div class="close-btn">&times;</div>

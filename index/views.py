@@ -11,9 +11,6 @@ def index(request):
                        Register.objects.filter(user=request.user.username)]
         })
 
-def market_index(request):
-    return render(request, 'mk_index.html')
-
 def create_campaign(request):
     if request.method in ('POST'):
         campaign = Campaign()

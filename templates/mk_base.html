@@ -64,23 +64,27 @@
       <div class="categories">
         <ul>
           <li class="{% if not category %}category-active{% endif %}">
-            <a href="">所有物件</a>
+            <a href="{% url 'category' option='all' %}">所有物件</a>
           </li>
-          <li class="{% if category == 'clothing' %}category-active{% endif %}">
-            <a href="">衣物服飾</a>
+          <li class="{% if category == '衣物服飾' %}category-active{% endif %}">
+            <a href="{% url 'category' option='衣物服飾' %}">衣物服飾</a>
           </li>
-          <li class="{% if category == 'shoes' %}category-active{% endif %}">
-            <a href="">鞋子</a>
+          <li class="{% if category == '鞋子' %}category-active{% endif %}">
+            <a href="{% url 'category' option='鞋子' %}">鞋子</a>
           </li>
-          <li class="{% if category == 'electronic' %}category-active{% endif %}">
-            <a href="">電子設備</a>
+          <li class="{% if category == '電子設備' %}category-active{% endif %}">
+            <a href="{% url 'category' option='電子設備' %}">電子設備</a>
           </li>
-          <li class="{% if category == 'others' %}category-active{% endif %}">
-            <a href="">其他物件</a>
+          <li class="{% if category == '其他物件' %}category-active{% endif %}">
+            <a href="{% url 'category' option='其他物件' %}">其他物件</a>
           </li>
           <div class='category-btn-div'>
           {% load static %}
-          <a class='category-btn my-item-btn' href="{% url 'user' %}">&#9786;</a>
+          {% if user_check == 'Check' %}
+          <a class='category-btn my-item-btn my-item-btn-active' href="{% url 'user_btn' %}">&#9786;</a>
+          {% else %}
+          <a class='category-btn my-item-btn' href="{% url 'user_btn' %}">&#9786;</a>
+          {% endif %}
           <button class='category-btn my-love-btn'>&#10084;</button>
           </div>
         </ul>
@@ -88,7 +92,7 @@
       <script>
         document.querySelector('.category-btn').addEventListener('click', () => {
           {% if not request.user.is_authenticated %}
-          alert('請先登入')
+          alert('請先登入');
           {% endif %}
         })
       </script>

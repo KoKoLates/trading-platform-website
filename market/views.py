@@ -13,7 +13,8 @@ category_list = [
 # Create your views here.
 def market_index(request):
     return render(request, 'mk_index.html', {
-        'items': Item.objects.all() if not category_type else Item.objects.filter(category=category_type),
+        'items': Item.objects.all() if not category_type \
+            else Item.objects.filter(category=category_type),
         'category': category_type
     })
 
@@ -32,7 +33,8 @@ def user_interface(request):
         user = request.user.username
 
     return  render(request, 'mk_user.html', {
-        'items': Item.objects.filter(user=user), 
+        'items': Item.objects.filter(user=user, category=category_type) \
+            if category_type else Item.objects.filter(user=user),
         'category': category_type, 
         'user_check': 'Check'
     }) if user_item_flag else redirect('market_index')
@@ -59,4 +61,20 @@ def create(request):
     return redirect('user_interface')
     
 def create_interface(request):
-    return render(request, 'mk_create.html')
+    return render(request, 'mk_create.html', {
+        'items': Item.objects.filter(user=request.user.username),
+        'user_check': 'Check'
+    })
+
+def preview_item(request, idx):
+    if request.method in ('GET'):
+        print(idx)
+    return redirect('market_index')
+
+@login_required(login_url='market_index')
+def remove_item(request, idx):
+    if request.method in ('GET'):
+        item = Item.objects.filter(idx=idx, user=request.user.username)
+        item.delete()
+
+    return redirect('user_interface')

@@ -7,5 +7,8 @@ urlpatterns = [
     path('user_interface/', views.user_interface, name='user_interface'),
     path('create/', views.create, name='create'),
     path('create_interface/', views.create_interface, name='create_interface'),
-    path('category/<str:option>/', views.category, name='category')
+    path('category/<str:option>/', views.category, name='category'),
+
+    path('preview/<idx>/', views.preview_item, name='preview_item'),
+    path('remove/<idx>/', views.remove_item, name='remove_item')
 ]

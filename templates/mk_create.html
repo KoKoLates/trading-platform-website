@@ -3,21 +3,21 @@
 {% block post %}
 <div class="post-container">
   <div class='post-bulletin-board'>
-    <div class='post'>
+    <div class='post create-post-div'>
       <a href="{% url 'create_interface' %}">新增商品</a>
     </div>
     {% for item in items %}
     <div class='post'>
       <div class='post-item-image'>
         {% load static %}
-        <img src="{{item.image.url}}" alt="{{item.name}}">
+        <img src="{{ item.image.url }}" alt="{{item.name}}">
       </div>
       <div class='post-item-text'>
         <p class="item-title">{{item.name}}</p>
         <div class='item-tag'>
           <p>NTD. {{item.price}}</p>
-          <button class='love-item love-item-active'>&#10084;</button>
-          <button class='buy-item buy-item-active'>&plus;</button>
+          <button class='love-item'>&#10084;</button>
+          <button class='buy-item'>&minus;</button>
         </div>
       </div>
     </div>

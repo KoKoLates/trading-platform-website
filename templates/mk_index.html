@@ -5,18 +5,24 @@
   <div class='post-bulletin-board'>
     {% for item in items %}
     <div class='post'>
-      <div class='post-item-image'>
-        {% load static %}
-        <img src="{{ item.image.url }}" alt="{{item.name}}">
-      </div>
-      <div class='post-item-text'>
-        <p class="item-title">{{item.name}}</p>
-        <div class='item-tag'>
-          <p>NTD. {{item.price}}</p>
-          <button class='love-item love-item-active'>&#10084;</button>
-          <button class='buy-item buy-item-active'>&plus;</button>
+      <a href="">
+        <div class='post-item-image'>
+          {% load static %}
+          <img src="{{ item.image.url }}" alt="{{item.name}}">
         </div>
-      </div>
+        <div class='post-item-text'>
+          <p class="item-title">{{item.name}}</p>
+          <div class='item-tag'>
+            <p>NTD. {{item.price}}</p>
+            <a class='love-item'>&#10084;</a>
+            {% if user.get_username == item.user %}
+            <a class='buy-item' href="{% url 'remove_item' idx=item.idx %}">&minus;</a>
+            {% else %}
+            <a class='buy-item'>&plus;</a>
+            {% endif %}
+          </div>
+        </div>
+      </a>
     </div>
     {% endfor %}
   </div>
@@ -24,7 +30,7 @@
 {% endblock post %}
 
 {% block preview %}
- {% comment %} <div class="preview-container">
+<div class="preview-container">
   <div class='preview-fixed-container'>
     <div class='t-item-description'>
       <div class='t-item-image'>
@@ -40,7 +46,7 @@
       </div>
     </div>
   </div>
-</div> {% endcomment %}
+</div>
 {% endblock preview %}
 
 

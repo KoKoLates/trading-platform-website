@@ -5,7 +5,7 @@
   <div class='post-bulletin-board'>
     {% for item in items %}
     <div class='post'>
-      <a href="">
+      <a style="background: none;" href="{% url 'preview_item' idx=item.idx %}">
         <div class='post-item-image'>
           {% load static %}
           <img src="{{ item.image.url }}" alt="{{item.name}}">
@@ -14,7 +14,14 @@
           <p class="item-title">{{item.name}}</p>
           <div class='item-tag'>
             <p>NTD. {{item.price}}</p>
-            <a class='love-item'>&#10084;</a>
+
+
+            {% if item.idx in love_items %}
+            <a class='love-item-active' href="{% url 'love_item' idx=item.idx %}">&#10084;</a>
+            {% else %}
+            <a class='love-item' href="{% url 'love_item' idx=item.idx %}">&#10084;</a>
+            {% endif %}
+
             {% if user.get_username == item.user %}
             <a class='buy-item' href="{% url 'remove_item' idx=item.idx %}">&minus;</a>
             {% else %}
@@ -30,23 +37,65 @@
 {% endblock post %}
 
 {% block preview %}
+{% for item in items %}
+{% if item.idx == previews %}
 <div class="preview-container">
   <div class='preview-fixed-container'>
-    <div class='t-item-description'>
-      <div class='t-item-image'>
-        {% load static %}
-        <img src="{% static 'images/test.jpg' %}" alt="">
+    <div class='preview-description'>
+      <div class='t-item-row' id='t-item-slide'>
+        <div class='t-item-col'>
+          <div class='t-item-image'>
+            <img src="{{ item.image.url }}" alt="{{item.name}}">
+          </div>
+        </div>
+
+        <div class='t-item-col'>
+          <div class='t-item-col-container'>
+            <p class='t-item-title'>{{item.name}}</p>
+            <div class='text-border'>
+              <p>商品價格: NTD.{{item.price}}</p>
+              <p>商品數量: {{item.quantity}}</p>
+              <P>交易方式: {{item.transaction_type}}</P>
+              {% if item.transaction_location %}
+              <P>面交地點: {{item.transaction_location}}</P>
+              {% endif %}
+              <P>商品狀況: {{item.condition}}</P>
+            </div>
+          </div>
+        </div>
+
+        <div class='t-item-col'>
+          <div class='t-item-col-container'>
+            <p class='t-item-title'>留言版</p>
+            <div class='text-border'>
+
+              <div class='comments'>
+                {% for comment in comments %}
+                <p>{{ comment.username }} : {{ comment.contents }}</p>
+                <p style="color: #e3e3e3">{{ comment.create_time|date:'Y.m.d H:i' }}</p>
+                {% empty %}
+                <p>目前還沒有留言</p>
+                {% endfor %}
+              </div>
+
+              <form action="{% url 'comment' idx=item.idx %}" method="post" id='comment-form'>
+                {% csrf_token %}
+                <textarea name="comment" id="comment-input"></textarea>
+                <button type='submit' id='comment-submit-button'>留言</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        
       </div>
-      <div class='t-item-text'>
-        <p class='t-item-title'>玻璃花瓶</p>
-        <p>NTD. 150 | 2個
-        </p>
-        <P>交易方式</P>
-        <P>商品狀況</P>
+      <div class="preview-indicator">
+        <span class="preview-btn preview-btn-active"></span>
+        <span class="preview-btn"></span>
+        <span class="preview-btn"></span>
       </div>
     </div>
   </div>
 </div>
+{% endif %}
+{% endfor %}
 {% endblock preview %}
-
-

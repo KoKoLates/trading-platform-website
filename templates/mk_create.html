@@ -16,8 +16,12 @@
         <p class="item-title">{{item.name}}</p>
         <div class='item-tag'>
           <p>NTD. {{item.price}}</p>
-          <button class='love-item'>&#10084;</button>
-          <button class='buy-item'>&minus;</button>
+          {% if item.idx in love_items %}
+          <a class='love-item-active' href="{% url 'love_item' idx=item.idx %}">&#10084;</a>
+          {% else %}
+          <a class='love-item' href="{% url 'love_item' idx=item.idx %}">&#10084;</a>
+          {% endif %}
+          <a class='buy-item' href="{% url 'remove_item' idx=item.idx %}">&minus;</a>
         </div>
       </div>
     </div>
@@ -39,7 +43,7 @@
         <input type="number" id='new-item-price' name='price' required>
       </label>
       <label>商品數量
-        <input type="text" id='new-item-quantity' name='quantity' required>
+        <input type="number" id='new-item-quantity' name='quantity' required>
       </label>
       <label>商品分類
         <select name="category" id="new-item-category">
@@ -49,23 +53,26 @@
           <option value="其他物件">其他物件</option>
         </select>
       </label>
+      
+      
       <label>交易方式
-        <select name="transcation_type" id="new-item-transcation-type">
+        <select name="transaction_type" id="new-item-transcation-type">
           <option value="只限面交">只限面交</option>
           <option value="只限寄送">只限寄送</option>
           <option value="面交、寄送皆可">面交、寄送皆可</option>
         </select>
       </label>
+      
+      
       <label>面交地點
-        <input type="text" id='new-item-transcation-location' name='transcation_location'>
+        <input type="text" id='new-item-transcation-location' name='transaction_location'>
       </label>
       <label>商品狀況
         <input type="text" id='new-item-condition' name='condition'>
       </label>
       <label class='new-item-input-image'>
         圖片上傳  
-        <input type="file" id='new-item-image' name='image'>
-        {% comment %} <input type="file" id='new-item-image' name='image2'> {% endcomment %}
+        <input type="file" id='new-item-image' name='image' required>
       </label>
       <div class='new-item-btn-block'>
         <button type='submit' id='new-item-add' class='new-item-btn'>&plus;</button>

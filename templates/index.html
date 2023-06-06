@@ -16,10 +16,10 @@
   <!-- top bar container for login --> 
 	<div class="top-bar-container">
 		<div class="top-bar-menu container">
-			<a href="#">
+			{% comment %} <a href="#">
 				<img src="{% static 'images/language.png' %}" alt="">
 				<div>語言</div>
-			</a>
+			</a> {% endcomment %}
 			<a href={% url 'login_interface' %}>
 				<img src="{% static 'images/person.png' %}" alt="">
 				{% if not request.user.is_authenticated %}
@@ -42,7 +42,8 @@
 					<li class="menu-item"><a href="{% url 'index'%}#campaign">活動</a></li>
 				</ul>
 			</div>
-			<div class="top-search" >
+
+			{% comment %} <div class="top-search" >
 				<a>
 					<img class="top-search-btn" src="{% static 'images/search.png' %}" alt="">
 					<img class="top-cancel-btn" src="{% static 'images/cancel.png' %}" alt="">
@@ -52,7 +53,8 @@
 				<form role="search" method="get" id="searchform" action="">
 					<div><input type="text" class="search-input" placeholder="搜尋" name="s" id="s" /></div>
 				</form>
-			</div>
+			</div> {% endcomment %}
+
 		</div>
 	</div>
 
@@ -159,14 +161,19 @@
 							{% endif %}	
 						</div>
 					</div>
-					<script>
-						document.querySelector('.campaign-register').addEventListener('click', () => {
-							{% if not request.user.is_authenticated %}
-							alert('請先登入')
-							{% endif %}
-						})
-					</script>
 					{% endfor %}
+					<script>
+						var isAlertShown = false;
+						var campaignRegisters = document.querySelectorAll('.campaign-register');
+						campaignRegisters.forEach(function(campaignRegister) {
+							campaignRegister.addEventListener('click', function() {
+								{% if not request.user.is_authenticated and not isAlertShown %}
+									alert('請先登入')
+									isAlertShown = true;
+								{% endif %}
+							});
+						});
+					</script>
 				</div>
 				{% if request.user.is_authenticated %}
 				<div class="campaign-form-container">

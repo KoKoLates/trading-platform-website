@@ -17,10 +17,6 @@
 <!-- top bar container -->
 <div class="top-bar-container">
   <div class="top-bar-menu container">
-    <a href="#">
-      <img src="{% static 'images/language.png' %}" alt="">
-      <div>語言</div>
-    </a>
     <a href={% url 'login_interface' %}>
       <img src="{% static 'images/person.png' %}" alt="">
       {% if not request.user.is_authenticated %}
@@ -50,8 +46,9 @@
 			</a>
 		</div>
 		<div class="show-search" id="show-search">
-			<form role="search" method="get" id="searchform" action="">
-				<div><input type="text" class="search-input" placeholder="搜尋" name="s" id="s" /></div>
+			<form role="search" method="get" id="searchform" action="{% url 'search_interface' %}">
+				<div><input type="text" class="search-input" id="s" placeholder="搜尋"
+          name="keyword" value="{{ request.GET.keyword }}"/></div>
 			</form>
 		</div>
 	</div>
@@ -78,14 +75,20 @@
           <li class="{% if category == '其他物件' %}category-active{% endif %}">
             <a href="{% url 'category' option='其他物件' %}">其他物件</a>
           </li>
+
           <div class='category-btn-div'>
-          {% load static %}
-          {% if user_check == 'Check' %}
-          <a class='category-btn my-item-btn my-item-btn-active' href="{% url 'user_btn' %}">&#9786;</a>
-          {% else %}
-          <a class='category-btn my-item-btn' href="{% url 'user_btn' %}">&#9786;</a>
-          {% endif %}
-          <button class='category-btn my-love-btn'>&#10084;</button>
+            {% load static %}
+            {% if user_check == 'check' %}
+            <a class='category-btn my-item-btn my-item-btn-active' href="{% url 'user_btn' %}">&#9786;</a>
+            {% else %}
+            <a class='category-btn my-item-btn' href="{% url 'user_btn' %}">&#9786;</a>
+            {% endif %}
+
+            {% if love_check == 'check' %}
+            <a class='category-btn my-love-btn-active' href="{% url 'love_btn' %}">&#10084;</a>
+            {% else %}
+            <a class='category-btn' href="{% url 'love_btn' %}">&#10084;</a>
+            {% endif %}
           </div>
         </ul>
       </div>
@@ -105,6 +108,6 @@
 
 <!-- Optional JavaScript -->
 <script src="{% static 'scripts/navbar.js' %}"></script>
-{% comment %} <script src="{% static 'scripts/market.js' %}"></script> {% endcomment %}
+<script src="{% static 'scripts/market.js' %}"></script>
 </body>
 </html>

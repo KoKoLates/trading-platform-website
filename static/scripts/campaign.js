@@ -71,18 +71,3 @@ campaign_shelve.addEventListener('mousemove', (event) => {
     let positionDiff = event.pageX - prePageX;
     campaign_shelve.scrollLeft = preScrollLeft - positionDiff;
 });
-
-// campaign register 
-// let registed_flag = false;
-// document.querySelector('.campaign-register').addEventListener('click', () => {
-//     if (registed_flag === false) {
-//         document.querySelector('.campaign-register').classList.add('is-registed');
-//         document.querySelector('.campaign-register').innerHTML = '<span>已報名</span>';
-//         registed_flag = true;
-//     }
-//     else {
-//         document.querySelector('.campaign-register').classList.remove('is-registed');
-//         document.querySelector('.campaign-register').innerHTML = '<span>報名活動</span>';
-//         registed_flag = false;
-//     }
-// })

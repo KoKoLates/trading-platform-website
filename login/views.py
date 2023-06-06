@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-from login.utils import mail_for_token_verification
+from login.utils import mail_for_token_verification, mail_for_changing_password
 from .models import Profile
 
 import uuid
@@ -98,7 +98,51 @@ def error(request):
     return render(request, 'lg_error.html')
 
 def forget_password(request):
-    """ pass """
+    try:
+        if request.method == 'POST':
+            username = request.POST.get('username')           
 
-def change_password(request):
-    """ pass """
+            if not User.objects.filter(username=username).first():
+                messages.success(request, 'Not user found with this username.')
+                return redirect('lg_forget_password')            
+
+            user_obj = User.objects.get(username = username)
+            token = str(uuid.uuid4())
+            profile_obj= Profile.objects.get(user=user_obj)
+            profile_obj.token= token
+            profile_obj.save()
+            mail_for_changing_password(user_obj.email , token)
+            messages.success(request, 'An email is sent.')
+            return redirect('forget_password')
+
+    except Exception as e:
+        print(e)
+    return render(request , 'lg_forget_password.html')
+
+def change_password(request, token):
+    context = {}
+    try:
+        profile_obj = Profile.objects.filter(token=token).first()
+        context = {'user_id' : profile_obj.user.id}
+
+        if request.method == 'POST':
+            new_password = request.POST.get('new_password')
+            confirm_password = request.POST.get('reconfirm_password')
+            user_id = request.POST.get('user_id')
+
+            if user_id is None:
+                messages.success(request, 'No user id found.')
+                return redirect(f'login/change-password/{token}/')
+
+            if  new_password != confirm_password:
+                messages.success(request, 'both should  be equal.')
+                return redirect(f'login/change-password/{token}/')
+
+            user_obj = User.objects.get(id = user_id)
+            user_obj.set_password(new_password)
+            user_obj.save()
+            return redirect('login_interface')
+    except Exception as e:
+        print(e)
+    
+    return render(request , 'lg_change_password.html' , context)

@@ -87,6 +87,11 @@
   color: #fff;
 }
 
+.my-love-btn-active {
+  background-color: brown;
+  color: #fff;
+}
+
 /* post part container */
 .post-container {
   width: 50%;
@@ -155,11 +160,20 @@
   justify-content: center;
   align-items: center;
   margin-left: 10px;
+  color: #313131;
 }
 
 .love-item-active {
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
   border: none;
   background-color: brown;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
   color: #fff;
 }
 
@@ -176,6 +190,7 @@
   margin-left: 10px;
   font-size: 20px;
   font-weight: bold;
+  color: #313131;
 }
 
 .create-post-div {
@@ -197,7 +212,6 @@
 }
 
 .post a {
-  background: none;
   text-decoration: none;
 }
 
@@ -272,4 +286,124 @@
   font-weight: bold;
   cursor: pointer;
   text-align: center;
+}
+
+.preview-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+  overflow: hidden;
+}
+
+.t-item-row {
+  display: flex;
+  transition: 0.5s;
+  transform: translateX(34%);
+}
+
+.t-item-col {
+  width: 300px;
+  height: 360px;
+  overflow: hidden;
+  border-radius: 30px;
+  margin: 0 20px;
+  background-color: aliceblue;
+}
+
+.t-item-image {
+  overflow: hidden;
+  background: none;
+}
+
+.t-item-row img {
+  min-width: 100%;
+  background: none;
+}
+
+.t-item-col-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: none;
+  padding: 5px 20px
+}
+
+.t-item-col-container .text-border {
+  background: none;
+  margin-top: 15px;
+  border: 1.5px solid #e3e3e3;
+  border-radius: 20px;
+  padding: 5px 10px;
+  height: 265px
+}
+
+.t-item-col-container .comments {
+  background: none;
+  overflow: auto;
+  height: 210px;
+  font-size: 10px;
+  margin-bottom: 10px;
+}
+
+.t-item-col-container p {
+  background: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.t-item-col-container .t-item-title {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.text-border form {
+  flex-direction: row;
+  background: none;
+  align-items: center;
+}
+
+.text-border textarea {
+  height: 20px;
+  background: none;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 0 5px;
+}
+
+.text-border button {
+  background: none;
+  border: 1px solid #313131;
+  height: 23px;
+  width: 38px;
+  border-radius: 7px;
+  display: flex;
+  font-size: 12px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.preview-indicator {
+  margin: 20px 0 20px 0;
+}
+
+.preview-btn {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  margin: 2px;
+  border-radius: 10px;
+  background: #313131;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.preview-btn-active {
+  width: 25px;
 }

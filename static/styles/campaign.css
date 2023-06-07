@@ -1,4 +1,20 @@
-/* campaign block */
+/**
+ * ========================================
+ * The mainly style sheet for campaign part
+ *
+ * @author: Po-Ting Ko
+ * @date: 2023-06-07
+ * 
+ * @hort descriptions:
+ * The style sheet contain the the compaign 
+ * container, campaign card and creating form 
+ * 
+ * ======================================== 
+ */
+
+/*
+ * The campagin container
+ */
 .campaign-container {
     height: 100vh;
     display: flex;

@@ -1,5 +1,8 @@
-
-// description slide
+/**
+ * This file is mainly for processing the preview part switch.
+ * @author: Po-Ting Ko
+ * @date: 2023-06-06
+ */
 let btn = document.getElementsByClassName('preview-btn');
 let slide = document.getElementById('t-item-slide')
 

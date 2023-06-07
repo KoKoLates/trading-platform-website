@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 
 <head>
-	<meta charset="UTF-8">
+ <meta charset="UTF-8">
 	<title>好市好事</title>
 
 	{% load static %}
@@ -136,6 +136,9 @@
 						document.querySelector('.campaign-add').addEventListener('click', () => {
 							{% if not request.user.is_authenticated %}
 							alert('請先登入')
+							{% else %}
+							document.querySelector('.campaign-form-container')?.classList.add('form-active');
+							document.querySelector('.campaign-form-overlay')?.classList.add('overlay-active');
 							{% endif %}
 						})
 					</script>
@@ -162,6 +165,7 @@
 						</div>
 					</div>
 					{% endfor %}
+
 					<script>
 						var isAlertShown = false;
 						var campaignRegisters = document.querySelectorAll('.campaign-register');
@@ -184,19 +188,19 @@
 						<input type="reset" class="campaign-form-close" value='x'>
 						<label for="name-input">
 							<span class="form-text">活動名稱</span>
-							<input type="text" id="name-input" name="name">
+							<input type="text" id="name-input" name="name" Required>
 						</label>
 						<label for="date-input">
 							<span class="form-text">活動日期</span>
-							<input type="date" id="date-input" name="date">
+							<input type="date" id="date-input" name="date" Required>
 						</label>
 						<label for="time-input">
 							<span class="form-text">活動時間</span>
-							<input type="time" id="time-input" name="time">
+							<input type="time" id="time-input" name="time" Required>
 						</label>
 						<label for="loca-input">
 							<span class="form-text">活動地點</span>
-							<input type="text" id="loca-input" name="location">
+							<input type="text" id="loca-input" name="location" Required>
 						</label>
 						<label for="desc-input">
 							<span class="form-text">活動描述（可略）</span>
@@ -213,7 +217,6 @@
 
 	<!-- Optional JavaScript -->
 	<script src="{% static 'scripts/script.js' %}"></script>
-	<script src="{% static 'scripts/navbar.js' %}"></script>
 	<script src="{% static 'scripts/campaign.js' %}"></script>
 </body>
 

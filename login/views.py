@@ -1,8 +1,7 @@
 from django.shortcuts import redirect, render
-from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-
+from django.contrib import messages
 from login.utils import mail_for_token_verification, mail_for_changing_password
 from .models import Profile
 
@@ -10,7 +9,6 @@ import uuid
 
 # Create your views here.
 def login_interface(request):
-    """ The view function of root login interface """
     return render(request, 'lg_logout.html') if request.user.is_authenticated \
         else render(request, 'lg_login.html')
 

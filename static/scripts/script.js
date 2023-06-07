@@ -1,7 +1,12 @@
-
+/**
+ * Handling the main page function
+ * @author: Po-Ting Ko
+ * @date: 2023-06-07
+ */
 let btn = document.getElementsByClassName('btn');
 let slide = document.getElementById('slide')
 
+// The button switch function
 btn[0].onclick = function () {
     slide.style.transform = 'translateX(38%)';
     for (let i = 0; i < 4; i++) {
@@ -34,8 +39,8 @@ btn[3].onclick = function () {
     this.classList.add('btn-active');
 }
 
-
-document.querySelector('#article-01').addEventListener('click', () => {
+// article render
+document.querySelector('#article-01')?.addEventListener('click', () => {
     document.querySelector('.popup-page').classList.add('active');
     document.getElementById('popup-title').innerHTML = '斷捨離妙招';
     document.getElementById('popup-contents').innerHTML = (
@@ -56,7 +61,7 @@ document.querySelector('#article-01').addEventListener('click', () => {
     );
 });
 
-document.querySelector('#article-02').addEventListener('click', () => {
+document.querySelector('#article-02')?.addEventListener('click', () => {
     document.querySelector('.popup-page').classList.add('active');
     document.getElementById('popup-title').innerHTML = '二手市集，新的綠色?';
     document.getElementById('popup-contents').innerHTML = (
@@ -79,7 +84,7 @@ document.querySelector('#article-02').addEventListener('click', () => {
     );
 });
 
-document.querySelector('#article-03').addEventListener('click', () => {
+document.querySelector('#article-03')?.addEventListener('click', () => {
     document.querySelector('.popup-page').classList.add('active');
     document.getElementById('popup-title').innerHTML = '網路市集挖寶!';
     document.getElementById('popup-contents').innerHTML = (
@@ -101,7 +106,7 @@ document.querySelector('#article-03').addEventListener('click', () => {
     );
 });
 
-document.querySelector('#article-04').addEventListener('click', () => {
+document.querySelector('#article-04')?.addEventListener('click', () => {
     document.querySelector('.popup-page').classList.add('active');
     document.getElementById('popup-title').innerHTML = '二手消費文化';
     document.getElementById('popup-contents').innerHTML = (
@@ -124,13 +129,22 @@ document.querySelector('#article-04').addEventListener('click', () => {
     );
 });
 
-document.querySelector('.popup-page .close-btn').addEventListener('click', () => {
+document.querySelector('.popup-page .close-btn')?.addEventListener('click', (event) => {
+    /**
+     * Remove the active effect of popup pages
+     * @param event request event
+     * @returns nont
+     */
     document.querySelector('.popup-page').classList.remove('active');
 });
 
-
 // article image parallax test 
-window.addEventListener('scroll', () => {
+window.addEventListener('scroll', (event) => {
+    /**
+     * Handling the parallax effet for background images.
+     * @param event request event
+     * @returns nont
+     */
     const scrollPositionY = window.pageYOffset;
     const backgorund = document.querySelector('.article-background');
     backgorund.style.transform = `translateY(${scrollPositionY * 0.3 - 100}px)`

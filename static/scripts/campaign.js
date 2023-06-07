@@ -1,41 +1,50 @@
+/**
+ * This file is mainly for processing the campaign part.
+ * @author: Po-Ting Ko
+ * @date: 2023-05-20
+ */
 
-
-document.querySelector('.campaign-add').addEventListener('click', () => {
-    document.querySelector('.campaign-form-container').classList.add('form-active');
-    document.querySelector('.campaign-form-overlay').classList.add('overlay-active');
-})
-
-document.querySelector('.campaign-form-close').addEventListener('click', () => {
-    document.querySelector('.campaign-form-container').classList.remove('form-active');
-    document.querySelector('.campaign-form-overlay').classList.remove('overlay-active');
+document.querySelector('.campaign-form-close')?.addEventListener('click', () => {
+    /**
+     * The function is to remove the overlay and form activate effect after 
+     * close the campaign form popup pages.
+     */
+    document.querySelector('.campaign-form-container')?.classList.remove('form-active');
+    document.querySelector('.campaign-form-overlay')?.classList.remove('overlay-active');
 })
 
 // query the campaign contents
 const submit_btn = document.querySelector('.campaign-form-add');
 
-submit_btn.addEventListener('submit', (event) => {
-    event.preventDefault();
+submit_btn?.addEventListener('submit', (event) => {
+    /**
+     * The function that processing the query values from campaign form.
+     * @param event the request event (submit) from the campagin form.
+     * @returns none
+     */
 
     const event_name = document.querySelector('#name-input').value;
     const event_date = document.querySelector('#date-input').value;
     const event_time = document.querySelector('#time-input').value;
     const event_loca = document.querySelector('#loca-input').value;
     const event_desc = document.querySelector('#desc-input').value;
+
     // create_campaign({
-    //     'name': event_name,
-    //     'date': event_date,
-    //     'time': event_time,
-    //     'loca': event_loca,
-    //     'desc': event_desc
+    //     'name': event_name, 'date': event_date, 'time': event_time,
+    //     'loca': event_loca, 'desc': event_desc
     // });
-    document.querySelector('.campaign-form-container').classList.remove('form-active');
+
     document.querySelector('.campaign-form-overlay').classList.remove('overlay-active');
-
-    // window.location.href = 'http://127.0.0.1:8000/#campaign';
-
+    document.querySelector('.campaign-form-container').classList.remove('form-active');
+    event.preventDefault();
 });
 
 function create_campaign(event) {
+    /**
+     * The function create the HTML block for campaign post
+     * @param event the request event
+     * @returns the HTML post div block
+     */
     document.querySelector('.campaign-row').insertAdjacentHTML(
         'beforeend',
         `<div class="campaign-col">
@@ -51,21 +60,33 @@ function create_campaign(event) {
     )
 }
 
-// campaign dragger
+// Handling the campaign dragger slider
 const campaign_shelve = document.querySelector('.campaign-shelve');
 let isDragStart = false, prePageX, preScrollLeft;
 
-campaign_shelve.addEventListener('mousedown', (event) => {
+campaign_shelve?.addEventListener('mousedown', (event) => {
+    /**
+     * Handling `mousedown` event for the dragger.
+     * @param event request event
+     */
     isDragStart = true;
     prePageX = event.pageX;
     preScrollLeft = campaign_shelve.scrollLeft;
 });
 
-campaign_shelve.addEventListener('mouseup', () => {
+campaign_shelve?.addEventListener('mouseup', (event) => {
+    /**
+     * Handling `mouseup` event for the dragger.
+     * @param event request event
+     */
     isDragStart = false;
 });
 
-campaign_shelve.addEventListener('mousemove', (event) => {
+campaign_shelve?.addEventListener('mousemove', (event) => {
+    /**
+     * Handling `mousemove` event for the dragger.
+     * @param event request event
+     */
     if (!isDragStart) return;
     event.preventDefault();
     let positionDiff = event.pageX - prePageX;

@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from .models import Campaign, Register
 
@@ -22,7 +21,6 @@ def create_campaign(request):
         campaign.announcer = request.user.username
         campaign.register_num = 0
         campaign.save()
-
     return redirect('index')
 
 def delete_campaign(request, idx):
@@ -40,7 +38,6 @@ def register_campaign(request, idx):
         register.user = request.user.username
         register.campaign = idx
         register.save()
-
         campaign = Campaign.objects.get(idx=idx)
         campaign.register_num += 1
         campaign.save()
@@ -50,9 +47,7 @@ def cancel_campaign(request, idx):
     if request.method in ('GET'):
         register = Register.objects.filter(campaign=idx, user=request.user.username)
         register.delete()
-
         campaign = Campaign.objects.get(idx=idx)
         campaign.register_num -= 1
         campaign.save()
-    
     return redirect('index')

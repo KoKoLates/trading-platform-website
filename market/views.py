@@ -44,8 +44,8 @@ def user_interface(request):
     elif love_item_flag:
         love_item = [item.item for item in Love.objects.filter(user=user)]
         return  render(request, 'mk_user.html', {
-            'items': Item.objects.filter(user=user, category=category_type, idx__in=love_item) \
-                if category_type else Item.objects.filter(user=user, idx__in=love_item),
+            'items': Item.objects.filter(category=category_type, idx__in=love_item) \
+                if category_type else Item.objects.filter(idx__in=love_item),
             'category': category_type,
             'previews': preview_index,
             'love_check': 'check',
@@ -56,20 +56,6 @@ def user_interface(request):
     else:
         return redirect('market_index')
     
-def search_interface(request):
-    keyword = request.GET.get('keyword')
-    print(keyword)
-    return render(request, 'mk_search.html')
-
-def category(request, option):
-    global category_type
-    global preview_index
-    preview_index = None
-    if request.method in ('GET'):
-        category_type = option if option in category_list else None
-
-    return redirect('user_interface' if user_item_flag or love_item_flag else 'market_index')
-
 @login_required(login_url='market_index')
 def create(request):
     global preview_index
@@ -123,6 +109,16 @@ def remove_item(request, idx):
 
     return redirect('user_interface')
 
+def category(request, option):
+    global category_type
+    global preview_index
+    preview_index = None
+    if request.method in ('GET'):
+        category_type = option if option in category_list else None
+
+    return redirect('user_interface' if user_item_flag or love_item_flag
+                     else 'market_index')
+
 def comment(request, idx):
     if request.method in ('POST'):
         Comment(
@@ -131,14 +127,16 @@ def comment(request, idx):
             contents = request.POST.get('comment')
         ).save()
     
-    return redirect('user_interface' if user_item_flag or love_item_flag else 'market_index')
+    return redirect('user_interface' if user_item_flag or love_item_flag
+                     else 'market_index')
 
 def preview_item(request, idx):
     global preview_index
     if request.method in ('GET'):
         preview_index = int(idx)
 
-    return redirect('user_interface' if user_item_flag or love_item_flag else 'market_index')
+    return redirect('user_interface' if user_item_flag or love_item_flag
+                     else 'market_index')
 
 ## function for changing btn status
 def user_btn(request):
@@ -146,8 +144,7 @@ def user_btn(request):
     preview_index = None ## clean the preview block
 
     global user_item_flag, love_item_flag
-    if love_item_flag:
-        love_item_flag = False
+    love_item_flag = not love_item_flag if love_item_flag else love_item_flag
     user_item_flag = not user_item_flag
     return redirect('user_interface')
 
@@ -159,3 +156,18 @@ def love_btn(request):
     user_item_flag = not user_item_flag if user_item_flag else user_item_flag
     love_item_flag = not love_item_flag
     return redirect('user_interface')
+
+def search_interface(request):
+    global preview_index
+    preview_index = None ## clean the preview block
+    search_keyword = request.GET.get('keyword')
+    print(search_keyword)
+    return render(request, 'mk_search.html', {
+        'items': Item.objects.filter(name__icontains=search_keyword) if not category_type \
+            else Item.objects.filter(name__icontains=search_keyword, category=category_type),
+        'category': category_type,
+        'previews': preview_index,
+        'love_items': [love.item for love in \
+                       Love.objects.filter(user=request.user.username)],
+        'comments': Comment.objects.filter(item_idx=preview_index)
+    })

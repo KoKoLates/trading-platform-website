@@ -25,5 +25,4 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('market/', include('market.urls'))
 ]
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,11 +1,43 @@
 {% extends 'mk_base.html' %}
 
 {% block post %}
+<div class="post-container">
+  <div class='post-bulletin-board'>
+    {% for item in items %}
+    <div class='post'>
+      <a style="background: none;" href="{% url 'preview_item' idx=item.idx %}">
+        <div class='post-item-image'>
+          {% load static %}
+          <img src="{{ item.image.url }}" alt="{{item.name}}">
+        </div>
+        <div class='post-item-text'>
+          <p class="item-title">{{item.name}}</p>
+          <div class='item-tag'>
+            <p>NTD. {{item.price}}</p>
 
+            {% if item.idx in love_items %}
+            <a class='love-item-active' href="{% url 'love_item' idx=item.idx %}">&#10084;</a>
+            {% else %}
+            <a class='love-item' href="{% url 'love_item' idx=item.idx %}">&#10084;</a>
+            {% endif %}
+            
+            {% if user.get_username == item.user %}
+            <a class='buy-item' href="{% url 'remove_item' idx=item.idx %}">&minus;</a>
+            {% else %}
+            <a class='buy-item'>&plus;</a>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+    </div>
+    {% empty%}
+    <p>沒有找到相符的物品</p>
+    {% endfor %}
+  </div>
+</div>
 {% endblock post %}
 
 {% block preview %}
-
 
 {% endblock preview %}
 

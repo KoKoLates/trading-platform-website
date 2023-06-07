@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-q)w%gk*dzmpsac4mr^=bv1-%5z#79p_v5qxdqn4(jcn=+o(=n0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['192.168.1.135']
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -35,7 +34,6 @@ INSTALLED_APPS = [
     'index.apps.IndexConfig',
     'login.apps.LoginConfig',
     'market.apps.MarketConfig',
-    # django contrib
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,5 +136,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'goodmarket1313@gmail.com'
-EMAIL_HOST_PASSWORD = 'uadzcflgmlgveacp' 
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = '' 

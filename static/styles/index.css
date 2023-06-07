@@ -1,3 +1,17 @@
+/**
+ * ========================================
+ * The mainly style sheet for index
+ *
+ * @author: Po-Ting Ko
+ * @date: 2023-05-20
+ * 
+ * @hort descriptions:
+ * The style sheet contain the the mainly container
+ * article div block cover and popup pages
+ * 
+ * ======================================== 
+ */
+
 @charset "UTF-8";
 
 @font-face {
@@ -74,8 +88,6 @@
 .cover-text div:nth-child(2) {
     text-align: right;
 }
-
-
 
 
 /* article-container */

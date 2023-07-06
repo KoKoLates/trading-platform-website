@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <!-- Required meta tags -->
   <meta charset="UTF-8">
@@ -14,100 +15,101 @@
 </head>
 
 <body>
-<!-- top bar container -->
-<div class="top-bar-container">
-  <div class="top-bar-menu container">
-    <a href={% url 'login_interface' %}>
-      <img src="{% static 'images/person.png' %}" alt="">
-      {% if not request.user.is_authenticated %}
-      <div>會員登入</div>
-      {% else %}
-      <div>{{ user.username }}</div>
-      {% endif %}
-    </a>
+  <!-- top bar container -->
+  <div class="top-bar-container">
+    <div class="top-bar-menu container">
+      <a href={% url 'login_interface' %}>
+        <img src="{% static 'images/person.png' %}" alt="">
+        {% if not request.user.is_authenticated %}
+        <div>會員登入</div>
+        {% else %}
+        <div>{{ user.username }}</div>
+        {% endif %}
+      </a>
+    </div>
   </div>
-</div>
 
-<!-- nav bar container -->
-<div class="nav-bar-container">
-	<div class="nav-bar-menu container">
-		<div class="menu">
-			<ul>
-				<li class="menu-item"><a href="{% url 'index' %}#">首頁</a></li>
-				<li class="menu-item"><a href="{% url 'market_index' %}">二手市集</a></li>
-				<li class="menu-item"><a href="{% url 'index'%}#article">專欄文章</a></li>
-				<li class="menu-item"><a href="{% url 'index'%}#campaign">活動</a></li>
-			</ul>
-		</div>
-		<div class="top-search" >
-			<a>
-				<img class="top-search-btn" src="{% static 'images/search.png' %}" alt="">
-				<img class="top-cancel-btn" src="{% static 'images/cancel.png' %}" alt="">
-			</a>
-		</div>
-		<div class="show-search" id="show-search">
-			<form role="search" method="get" id="searchform" action="{% url 'search_interface' %}">
-				<div><input type="text" class="search-input" id="s" placeholder="搜尋"
-          name="keyword" value="{{ request.GET.keyword }}"/></div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="market-interface-container">
-  <div class="market-interface">
-    {% load static %}
-    <div class="category-container">
-      <div class="categories">
+  <!-- nav bar container -->
+  <div class="nav-bar-container">
+    <div class="nav-bar-menu container">
+      <div class="menu">
         <ul>
-          <li class="{% if not category %}category-active{% endif %}">
-            <a href="{% url 'category' option='all' %}">所有物件</a>
-          </li>
-          <li class="{% if category == '衣物服飾' %}category-active{% endif %}">
-            <a href="{% url 'category' option='衣物服飾' %}">衣物服飾</a>
-          </li>
-          <li class="{% if category == '鞋子' %}category-active{% endif %}">
-            <a href="{% url 'category' option='鞋子' %}">鞋子</a>
-          </li>
-          <li class="{% if category == '電子設備' %}category-active{% endif %}">
-            <a href="{% url 'category' option='電子設備' %}">電子設備</a>
-          </li>
-          <li class="{% if category == '其他物件' %}category-active{% endif %}">
-            <a href="{% url 'category' option='其他物件' %}">其他物件</a>
-          </li>
-
-          <div class='category-btn-div'>
-            {% load static %}
-            {% if user_check == 'check' %}
-            <a class='category-btn my-item-btn my-item-btn-active' href="{% url 'user_btn' %}">&#9786;</a>
-            {% else %}
-            <a class='category-btn my-item-btn' href="{% url 'user_btn' %}">&#9786;</a>
-            {% endif %}
-
-            {% if love_check == 'check' %}
-            <a class='category-btn my-love-btn-active' href="{% url 'love_btn' %}">&#10084;</a>
-            {% else %}
-            <a class='category-btn' href="{% url 'love_btn' %}">&#10084;</a>
-            {% endif %}
-          </div>
+          <li class="menu-item"><a href="{% url 'index' %}#">首頁</a></li>
+          <li class="menu-item"><a href="{% url 'market_index' %}">二手市集</a></li>
+          <li class="menu-item"><a href="{% url 'index'%}#article">專欄文章</a></li>
+          <li class="menu-item"><a href="{% url 'index'%}#campaign">活動</a></li>
         </ul>
       </div>
-      <script>
-        document.querySelector('.category-btn').addEventListener('click', () => {
-          {% if not request.user.is_authenticated %}
-          alert('請先登入');
-          {% endif %}
-        })
-      </script>
+      <div class="top-search">
+        <a>
+          <img class="top-search-btn" src="{% static 'images/search.png' %}" alt="">
+          <img class="top-cancel-btn" src="{% static 'images/cancel.png' %}" alt="">
+        </a>
+      </div>
+      <div class="show-search" id="show-search">
+        <form role="search" method="get" id="searchform" action="{% url 'search_interface' %}">
+          <div><input type="text" class="search-input" id="s" placeholder="搜尋" name="keyword"
+              value="{{ request.GET.keyword }}" /></div>
+        </form>
+      </div>
     </div>
-    
-    {% block post %}{% endblock post %}
-    {% block preview %}{% endblock preview %}
   </div>
-</div>
 
-<!-- Optional JavaScript -->
-<script src="{% static 'scripts/navbar.js' %}"></script>
-<script src="{% static 'scripts/market.js' %}"></script>
+  <div class="market-interface-container">
+    <div class="market-interface">
+      {% load static %}
+      <div class="category-container">
+        <div class="categories">
+          <ul>
+            <li class="{% if not category %}category-active{% endif %}">
+              <a href="{% url 'category' option='all' %}">所有物件</a>
+            </li>
+            <li class="{% if category == '衣物服飾' %}category-active{% endif %}">
+              <a href="{% url 'category' option='衣物服飾' %}">衣物服飾</a>
+            </li>
+            <li class="{% if category == '鞋子' %}category-active{% endif %}">
+              <a href="{% url 'category' option='鞋子' %}">鞋子</a>
+            </li>
+            <li class="{% if category == '電子設備' %}category-active{% endif %}">
+              <a href="{% url 'category' option='電子設備' %}">電子設備</a>
+            </li>
+            <li class="{% if category == '其他物件' %}category-active{% endif %}">
+              <a href="{% url 'category' option='其他物件' %}">其他物件</a>
+            </li>
+
+            <div class='category-btn-div'>
+              {% load static %}
+              {% if user_check == 'check' %}
+              <a class='category-btn my-item-btn my-item-btn-active' href="{% url 'user_btn' %}">&#9786;</a>
+              {% else %}
+              <a class='category-btn my-item-btn' href="{% url 'user_btn' %}">&#9786;</a>
+              {% endif %}
+
+              {% if love_check == 'check' %}
+              <a class='category-btn my-love-btn-active' href="{% url 'love_btn' %}">&#10084;</a>
+              {% else %}
+              <a class='category-btn' href="{% url 'love_btn' %}">&#10084;</a>
+              {% endif %}
+            </div>
+          </ul>
+        </div>
+        <script>
+          document.querySelector('.category-btn').addEventListener('click', () => {
+            {% if not request.user.is_authenticated %}
+            alert('請先登入');
+            {% endif %}
+          })
+        </script>
+      </div>
+
+      {% block post %}{% endblock post %}
+      {% block preview %}{% endblock preview %}
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <script src="{% static 'scripts/navbar.js' %}"></script>
+  <script src="{% static 'scripts/market.js' %}"></script>
 </body>
+
 </html>

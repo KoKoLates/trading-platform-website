@@ -22,8 +22,6 @@ https://github.com/KoKoLates/trading-platform-website.git
 3. Create and activate a virtual environment. It is recommended to use virtual environments to isolate project dependencies. (Optional)
 ```shell
 python -m venv .venve
-
-source .venv/bin/activate # for Linux user
 .venv\Script\activate # for windows user
 ```
 

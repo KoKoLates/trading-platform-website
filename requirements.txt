@@ -4,5 +4,5 @@ daphne==4.0.0
 channels==4.0.0
 channels-redis==4.1.0
 redis-server==6.0.9
-pillow==10.0.1
+pillow>=10.2.0
 selenium
